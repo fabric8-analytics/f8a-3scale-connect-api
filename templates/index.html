@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>3 Scale POC</title>
+        <style type="text/css">
+            .container {
+                width: 50%;
+                margin: 0 auto;
+                position: relative;
+            }
+
+            #user_input {
+                width: 100%;
+                height: 200px;
+                resize: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <textarea id="user_input"></textarea>
+            <button id="submit">Register to 3 scale</button>
+        </div>
+
+        <script type="text/javascript">
+            var app = app || {};
+            app = (function () {
+                var fn, api;
+                fn = {
+                    _init: function () {
+                        fn._registerEvents();
+                    },
+                    _registerEvents: function () {
+                        document.getElementById('submit').addEventListener('click', function(event) {
+                            var value = document.getElementById('user_input').value;
+                            var data = {
+                                'auth_token': value
+                            };
+                            var xhr = new XMLHttpRequest();
+                            xhr.open('POST', '/register', true);
+                            xhr.setRequestHeader("Content-type", "application/json");
+                            xhr.send(JSON.stringify(data));
+                            xhr.onreadystatechange = function() {
+                                if (xhr.readyState == XMLHttpRequest.DONE) {
+                                    console.log(xhr.responseText);
+                                }
+                            }
+                        });
+                    }
+                };
+                api = {
+                    init: function () {
+                        return fn._init.apply(null);
+                    }
+                };
+                return api;
+            })();
+            window.onload = app.init;
+        </script>
+    </body>
+</html>
