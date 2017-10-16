@@ -24,7 +24,7 @@ RELEASE_VERSION = '1'
 temp = '-temporary-fill'
 
 
-counter = '003'
+counter = '004'
 
 service_cache = {}
 application_cache = {}
@@ -56,6 +56,7 @@ def register(company):
         service_result = json.dumps(service_response)
         service_output = json.loads(service_result)
         # account_id = service_output['account_id']
+        print(service_output)
         service_id = service_output['id']
 
         print('Account Id: ' + account_id)

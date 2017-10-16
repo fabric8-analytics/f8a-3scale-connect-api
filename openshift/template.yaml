@@ -1,25 +1,25 @@
 apiVersion: v1
 kind: Template
 labels:
-  template: bayesian-api
+  template: 3scale-admin-gateway
 metadata:
-  name: bayesian-api
+  name: 3scale-admin-gateway
   annotations:
-    description: bayesian-api
+    description: 3scale-admin-gateway
 objects:
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
     labels:
-      service: bayesian-api
-    name: bayesian-api
+      service: 3scale-admin-gateway
+    name: 3scale-admin-gateway
   spec:
     selector:
-      service: bayesian-api
+      service: 3scale-admin-gateway
     template:
       metadata:
         labels:
-          service: bayesian-api
+          service: 3scale-admin-gateway
       spec:
         containers:
         - env:
@@ -30,12 +30,6 @@ objects:
               configMapKeyRef:
                 name: bayesian-config
                 key: deployment-prefix
-          - name: WORKER_ADMINISTRATION_REGION
-            value: "api"
-          - name: PGBOUNCER_SERVICE_HOST
-            value: bayesian-pgbouncer
-          - name: ANITYA_SERVICE_HOST
-            value: bayesian-anitya
           - name: BAYESIAN_FETCH_PUBLIC_KEY
             valueFrom:
               configMapKeyRef:
@@ -43,43 +37,8 @@ objects:
                 key: keycloak-url
           - name: BAYESIAN_JWT_AUDIENCE
             value: "fabric8-online-platform,openshiftio-public"
-          - name: POSTGRESQL_DATABASE
-            valueFrom:
-              secretKeyRef:
-                name: coreapi-postgres
-                key: database
-          - name: POSTGRESQL_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: coreapi-postgres
-                key: password
-          - name: POSTGRESQL_USER
-            valueFrom:
-              secretKeyRef:
-                name: coreapi-postgres
-                key: username
-          - name: AWS_SQS_ACCESS_KEY_ID
-            valueFrom:
-              secretKeyRef:
-                name: aws
-                key: sqs-access-key-id
-          - name: AWS_SQS_SECRET_ACCESS_KEY
-            valueFrom:
-              secretKeyRef:
-                name: aws
-                key: sqs-secret-access-key
-          - name: AWS_S3_ACCESS_KEY_ID
-            valueFrom:
-              secretKeyRef:
-               name: aws
-               key: s3-access-key-id
-          - name: AWS_S3_SECRET_ACCESS_KEY
-            valueFrom:
-              secretKeyRef:
-                name: aws
-                key: s3-secret-access-key
           image: "${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${IMAGE_TAG}"
-          name: bayesian-api
+          name: 3scale-admin-gateway
           ports:
           - containerPort: 5000
             protocol: TCP
@@ -115,8 +74,8 @@ objects:
   kind: Service
   metadata:
     labels:
-      service: bayesian-api
-    name: bayesian-api
+      service: 3scale-admin-gateway
+    name: 3scale-admin-gateway
   spec:
     ports:
     - name: "32000"
@@ -124,20 +83,20 @@ objects:
       protocol: TCP
       targetPort: 5000
     selector:
-      service: bayesian-api
+      service: 3scale-admin-gateway
 - apiVersion: v1
   kind: Route
   metadata:
-    name: bayesian-api
+    name: 3scale-admin-gateway
   spec:
     host: ${BAYESIAN_API_HOSTNAME}
     to:
       kind: Service
-      name: bayesian-api
+      name: 3scale-admin-gateway
 
 parameters:
-- description: A hostname where the Bayesian API should be exposed (will be auto-generated if empty)
-  displayName: Bayesian API hostname
+- description: A hostname where the 3 Scale admin gateway API should be exposed (will be auto-generated if empty)
+  displayName: 3 Scale API hostname
   required: false
   name: BAYESIAN_API_HOSTNAME
 
@@ -151,7 +110,7 @@ parameters:
   displayName: Docker image
   required: true
   name: DOCKER_IMAGE
-  value: "bayesian/bayesian-api"
+  value: "bayesian/3scale-admin-gateway"
 
 - description: Image tag
   displayName: Image tag

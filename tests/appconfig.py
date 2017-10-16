@@ -1,3 +1,0 @@
-
-DEBUG = False
-API_TOKEN_LIFETIME = 2
