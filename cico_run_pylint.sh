@@ -9,4 +9,3 @@ prep() {
 }
 
 prep
-./run-linter.sh

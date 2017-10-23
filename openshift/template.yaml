@@ -23,20 +23,6 @@ objects:
       spec:
         containers:
         - env:
-          - name: F8A_DEBUG
-            value: "true"
-          - name: DEPLOYMENT_PREFIX
-            valueFrom:
-              configMapKeyRef:
-                name: bayesian-config
-                key: deployment-prefix
-          - name: BAYESIAN_FETCH_PUBLIC_KEY
-            valueFrom:
-              configMapKeyRef:
-                name: bayesian-config
-                key: keycloak-url
-          - name: BAYESIAN_JWT_AUDIENCE
-            value: "fabric8-online-platform,openshiftio-public"
           image: "${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${IMAGE_TAG}"
           name: 3scale-admin-gateway
           ports:
@@ -44,7 +30,7 @@ objects:
             protocol: TCP
           readinessProbe:
             httpGet:
-              path: /api/v1/readiness
+              path: /
               port: 5000
               scheme: HTTP
             initialDelaySeconds: 30
@@ -52,7 +38,7 @@ objects:
             timeoutSeconds: 10
           livenessProbe:
             httpGet:
-              path: /api/v1/liveness
+              path: /
               port: 5000
               scheme: HTTP
             initialDelaySeconds: 30
