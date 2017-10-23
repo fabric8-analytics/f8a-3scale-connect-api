@@ -1,5 +1,4 @@
 FROM registry.centos.org/centos/centos:7
-MAINTAINER Arunkumar Srisailapathi <asrisail@redhat.com>
 
 RUN useradd 3scale
 # Install deps for cryptography:
