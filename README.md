@@ -1,6 +1,6 @@
 # 3scale-poc
 
-A simple flask application.
+A simple flask application. 
 
 run this command: export FLASK_APP=app.py
 flask run
