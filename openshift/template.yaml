@@ -1,30 +1,30 @@
 apiVersion: v1
 kind: Template
 labels:
-  template: f8-3scale-admin-gateway
+  template: f8a-3scale-admin-gateway
 metadata:
-  name: f8-3scale-admin-gateway
+  name: f8a-3scale-admin-gateway
   annotations:
-    description: f8-3scale-admin-gateway
+    description: f8a-3scale-admin-gateway
 objects:
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
     labels:
-      service: f8-3scale-admin-gateway
-    name: f8-3scale-admin-gateway
+      service: f8a-3scale-admin-gateway
+    name: f8a-3scale-admin-gateway
   spec:
     selector:
-      service: f8-3scale-admin-gateway
+      service: f8a-3scale-admin-gateway
     template:
       metadata:
         labels:
-          service: f8-3scale-admin-gateway
+          service: f8a-3scale-admin-gateway
       spec:
         containers:
         - env:
           image: "${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${IMAGE_TAG}"
-          name: f8-3scale-admin-gateway
+          name: f8a-3scale-admin-gateway
           ports:
           - containerPort: 5000
             protocol: TCP
@@ -60,8 +60,8 @@ objects:
   kind: Service
   metadata:
     labels:
-      service: f8-3scale-admin-gateway
-    name: f8-3scale-admin-gateway
+      service: f8a-3scale-admin-gateway
+    name: f8a-3scale-admin-gateway
   spec:
     ports:
     - name: "32000"
@@ -69,16 +69,16 @@ objects:
       protocol: TCP
       targetPort: 5000
     selector:
-      service: f8-3scale-admin-gateway
+      service: f8a-3scale-admin-gateway
 - apiVersion: v1
   kind: Route
   metadata:
-    name: f8-3scale-admin-gateway
+    name: f8a-3scale-admin-gateway
   spec:
     host: ${BAYESIAN_API_HOSTNAME}
     to:
       kind: Service
-      name: f8-3scale-admin-gateway
+      name: f8a-3scale-admin-gateway
 
 parameters:
 - description: A hostname where the 3 Scale admin gateway API should be exposed (will be auto-generated if empty)
@@ -96,7 +96,7 @@ parameters:
   displayName: Docker image
   required: true
   name: DOCKER_IMAGE
-  value: "bayesian/f8-3scale-admin-gateway"
+  value: "bayesian/f8a-3scale-admin-gateway"
 
 - description: Image tag
   displayName: Image tag
