@@ -96,7 +96,7 @@ parameters:
   displayName: Docker image
   required: true
   name: DOCKER_IMAGE
-  value: "bayesian/f8a-3scale-admin-gateway"
+  value: "fabric8-analytics/f8a-3scale-admin-gateway"
 
 - description: Image tag
   displayName: Image tag
