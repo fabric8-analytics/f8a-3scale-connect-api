@@ -23,6 +23,8 @@ objects:
       spec:
         containers:
         - env:
+          - name: GUNICORN_CMD_ARGS
+            value: "${GUNICORN_CMD_ARGS}"
           image: "${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${IMAGE_TAG}"
           name: f8a-3scale-admin-gateway
           ports:
@@ -109,3 +111,9 @@ parameters:
   required: true
   name: REPLICAS
   value: "1"
+
+- description: Settings for Gunicorn
+  displayName: Settings for Gunicorn
+  required: true
+  name: GUNICORN_CMD_ARGS
+  value: "-b :5000 --workers=4"

@@ -12,7 +12,7 @@ RUN yum install -y gcc &&\
 RUN mkdir -p /3scale
 COPY ./ /3scale
 WORKDIR /3scale
-RUN pip3 install -r requirements.txt
-ENTRYPOINT ["python3"]
-CMD ["app.py"]
+RUN pip3 install -r requirements.txt &&\
+    pip3 install gunicorn
+CMD ["gunicorn", "app:app"]
 
