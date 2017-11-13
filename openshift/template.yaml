@@ -25,6 +25,21 @@ objects:
         - env:
           - name: GUNICORN_CMD_ARGS
             value: "${GUNICORN_CMD_ARGS}"
+          - name: THREE_SCALE_API_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: 3scale
+                key: three_scale_api_access_key
+          - name: THREE_SCALE_API_ACCOUNT_ID
+            valueFrom:
+              secretKeyRef:
+                name: 3scale
+                key: three_scale_api_account_id
+          - name: THREE_SCALE_API_HOST_URL
+            valueFrom:
+              configMapKeyRef:
+                name: bayesian-config
+                key: three-scale-api-host-url
           image: "${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${IMAGE_TAG}"
           name: f8a-3scale-admin-gateway
           ports:
