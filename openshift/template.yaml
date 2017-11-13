@@ -25,8 +25,6 @@ objects:
         - env:
           - name: GUNICORN_CMD_ARGS
             value: "${GUNICORN_CMD_ARGS}"
-          image: "${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${IMAGE_TAG}"
-          name: f8a-3scale-admin-gateway
           - name: THREE_SCALE_API_ACCESS_KEY
             valueFrom:
               secretKeyRef:
@@ -37,6 +35,8 @@ objects:
               secretKeyRef:
                 name: 3scale
                 key: three_scale_api_account_id
+          image: "${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${IMAGE_TAG}"
+          name: f8a-3scale-admin-gateway
         ports:
           - containerPort: 5000
             protocol: TCP
