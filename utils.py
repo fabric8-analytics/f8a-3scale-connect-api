@@ -23,10 +23,6 @@ LIMIT_CREATE = '/admin/api/application_plans/{}/metrics/{}/limits.xml'
 API_BACK_END = 'https://recommender.api.openshift.io'
 RELEASE_VERSION = '1'
 
-temp = '-temporary-fill'
-
-
-counter = '004'
 
 service_cache = {}
 application_cache = {}
@@ -290,9 +286,9 @@ def proxy_config_read(service, environment, version):
 
             if response_load['proxy_config'] and response_load['proxy_config']['content'] and response_load['proxy_config']['content']['proxy']:
                 proxy_cache['endpoint'] = {}
-                temp = response_load['proxy_config']['content']['proxy']
-                proxy_cache['endpoint']['prod'] = temp['endpoint']
-                proxy_cache['endpoint']['stage'] = temp['sandbox_endpoint']
+                resp_dict = response_load['proxy_config']['content']['proxy']
+                proxy_cache['endpoint']['prod'] = resp_dict['endpoint']
+                proxy_cache['endpoint']['stage'] = resp_dict['sandbox_endpoint']
                 return True
             
     except:
@@ -321,7 +317,7 @@ def service_get(company):
                     for service in v:
                         for i_k, i_v in service.items():
                             if (i_k == 'name'):
-                                if (i_v == 'service-' + company + '-' + counter + temp):
+                                if (i_v == 'service-' + company):
                                     print('Here isnide service')
                                     service_cache = service
                                     return True
@@ -353,7 +349,7 @@ def application_get(company, account):
                     for application in v:
                         for i_k, i_v in application.items():
                             if (i_k == 'name'):
-                                if (i_v == 'application-' + company + '-' + counter + temp):
+                                if (i_v == 'application-' + company):
                                     application_cache = application
                                     print('Inside application')
                                     return True
@@ -366,8 +362,9 @@ def application_plan_create(company, service):
     headers = {'content-type': 'application/x-www-form-urlencoded'}
     access_token = API_ACCESS_KEY
     service_id = service
-    name = 'application-plan-' + company + '-' + counter + temp
-    system_name = 'application-plan-sys-' + company + '-' + counter + temp
+    name = 'application-plan-' + company
+    system_name = 'application-plan-sys-' + company
+
     url = API_URL + APPLICATION_PLAN_CREATION + service_id + '/' + 'application_plans.xml'
 
     data = []
@@ -397,7 +394,7 @@ def application_create(company, plan, account):
     access_token = API_ACCESS_KEY
     account_id = account
     plan_id = plan
-    name = 'application-' + company + '-' + counter + temp
+    name = 'application-' + company
     description = 'Application created for ' + company
 
     data = []
@@ -431,11 +428,13 @@ def application_create(company, plan, account):
 
 def service_create(company):
     headers = {'content-type': 'application/x-www-form-urlencoded'}
-    service_name = 'service-' + company + '-' + counter + temp
+    service_name = 'service-' + company
+
     access_token = API_ACCESS_KEY
     deployment_option = 'hosted' #hosted or self_managed
     backend_version = 1
-    system_name = 'service-system-' + company + '-' + counter + temp
+    system_name = 'service-system-' + company
+
 
     data = []
     data.append('name={}'.format(service_name))
@@ -468,8 +467,8 @@ def service_plan_create(company, service):
     headers = {'content-type': 'application/x-www-form-urlencoded'}
     access_token = API_ACCESS_KEY
     service_id = service
-    name = 'service-plan-' + company + '-' + counter + temp
-    system_name = 'service-plan-system-' + company + '-' + counter + temp
+    name = 'service-plan-' + company
+    system_name = 'service-plan-system-' + company
     url = API_URL + SERVICE_PLAN_CREATION + service_id + '/' + 'service_plans.xml'
 
     data = []
@@ -500,8 +499,8 @@ def metric_create(company, service):
     headers = {'content-type': 'application/x-www-form-urlencoded'}
     access_token = API_ACCESS_KEY
     service_id = service
-    name = 'metric-' + company + '-' + counter + temp
-    system_name = 'metric-system-' + company + '-' + counter + temp
+    name = 'metric-' + company
+    system_name = 'metric-system-' + company
     unit = 'hit'
 
     url = API_URL + METRIC_CREATION + service_id + '/' + 'metrics.xml'
