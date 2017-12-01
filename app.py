@@ -22,6 +22,23 @@ def register():
     #return _auth
     return json.dumps(response)
 
+@app.route('/get-route', methods=['POST'])
+def get_route():
+    params = request.get_json()
+    _auth = params.get('auth_token', None)
+    _servID = params.get('service_id', None)
+    if not _auth:
+        return json.dumps({"error": "Bad request"})
+    else:
+        try:
+            decoded = jwt.decode(_auth, verify=False)
+        except Exception:
+            return json.dumps({"error": "unauthorized"})
+        else:
+            company = decoded['company']
+            response = utils.get_route(_servID)
+            return json.dumps(response)
+
 
 if __name__ == "__main__":
     app.run()
