@@ -25,8 +25,8 @@ def register():
 @app.route('/get-route', methods=['POST'])
 def get_route():
     params = request.get_json()
-    _auth = params.get('auth_token', None)
-    _servID = params.get('service_id', None)
+    _auth = params.get('auth_token')
+    _servID = params.get('service_id')
     if not _auth:
         return json.dumps({"error": "Bad request"})
     else:
