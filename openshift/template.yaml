@@ -35,11 +35,6 @@ objects:
               secretKeyRef:
                 name: 3scale
                 key: three_scale_api_account_id
-          - name: THREE_SCALE_API_SERVICE_ID
-            valueFrom:
-              secretKeyRef:
-                name: 3scale
-                key: three_scale_api_service_id
           - name: THREE_SCALE_API_HOST_URL
             valueFrom:
               configMapKeyRef:
