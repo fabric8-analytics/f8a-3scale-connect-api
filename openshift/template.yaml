@@ -25,6 +25,8 @@ objects:
         - env:
           - name: GUNICORN_CMD_ARGS
             value: "${GUNICORN_CMD_ARGS}"
+          - name: THREE_SCALE_API_SERVICE_ID
+            value: "${SERVICES_LIST}"
           - name: THREE_SCALE_API_ACCESS_KEY
             valueFrom:
               secretKeyRef:
@@ -132,3 +134,8 @@ parameters:
   required: true
   name: GUNICORN_CMD_ARGS
   value: "-b :5000 --workers=4"
+
+- description: "Subset of services to run. Use comma separated list of service ids (eg. 42,1337)"
+  value:
+  name: SERVICES_LIST
+  required: false
