@@ -245,8 +245,8 @@ def application_get_route(service_id, account):
                 for k, v in response['applications'].items():
                     for application in v:
                         for i_k, i_v in application.items():
-                            if (i_k == 'service_id'):
-                                if (i_v == service_id):
+                            if i_k == 'service_id':
+                                if i_v == service_id:
                                     application_cache = application
                                     return application
     except:
@@ -316,9 +316,9 @@ def service_get(company):
                 for k, v in response['services'].items():
                     for service in v:
                         for i_k, i_v in service.items():
-                            if (i_k == 'name'):
-                                if (i_v == 'service-' + company):
-                                    print('Here isnide service')
+                            if i_k == 'name':
+                                if i_v == 'service-' + company:
+                                    print('Here inside service')
                                     service_cache = service
                                     return True
     except:
@@ -348,8 +348,8 @@ def application_get(company, account):
                     print('Inside this app get')
                     for application in v:
                         for i_k, i_v in application.items():
-                            if (i_k == 'name'):
-                                if (i_v == 'application-' + company):
+                            if i_k == 'name':
+                                if i_v == 'application-' + company:
                                     application_cache = application
                                     print('Inside application')
                                     return True
