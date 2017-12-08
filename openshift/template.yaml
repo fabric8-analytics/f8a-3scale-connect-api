@@ -113,7 +113,7 @@ parameters:
   displayName: Docker image
   required: true
   name: DOCKER_IMAGE
-  value: "fabric8-analytics/3scale-admin-gateway"
+  value: "fabric8-analytics/f8a-3scale-connect-api"
 
 - description: Image tag
   displayName: Image tag
