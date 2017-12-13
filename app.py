@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import Flask, render_template, request, json
+from flask_api import status
 import utils
 import jwt
 
@@ -28,12 +29,12 @@ def get_route():
     _auth = params.get('auth_token')
     _servID = params.get('service_id')
     if not _auth:
-        return json.dumps({"error": "Bad request"})
+        return json.dumps({"error": "missing or invalid auth token"}), status.HTTP_404_NOT_FOUND
     else:
         try:
             decoded = jwt.decode(_auth, verify=False)
         except Exception:
-            return json.dumps({"error": "unauthorized"})
+            return json.dumps({"error": "unauthorized"}), status.HTTP_401_UNAUTHORIZED
         else:
             company = decoded['company']
             response = utils.get_route(_servID)
