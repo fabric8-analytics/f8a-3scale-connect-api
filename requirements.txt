@@ -11,6 +11,7 @@ click==6.7                # via flask
 cryptography==1.7.2       # via jwt
 enum34==1.1.6             # via cryptography
 flask==0.12.2
+Flask-API==1.0
 idna==2.5                 # via cryptography, requests
 ipaddress==1.0.18         # via cryptography
 itsdangerous==0.24        # via flask
