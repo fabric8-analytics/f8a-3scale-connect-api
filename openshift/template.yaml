@@ -1,25 +1,25 @@
 apiVersion: v1
 kind: Template
 labels:
-  template: f8a-3scale-admin-gateway
+  template: f8a-3scale-connect-api
 metadata:
-  name: f8a-3scale-admin-gateway
+  name: f8a-3scale-connect-api
   annotations:
-    description: f8a-3scale-admin-gateway
+    description: f8a-3scale-connect-api
 objects:
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
     labels:
-      service: f8a-3scale-admin-gateway
-    name: f8a-3scale-admin-gateway
+      service: f8a-3scale-connect-api
+    name: f8a-3scale-connect-api
   spec:
     selector:
-      service: f8a-3scale-admin-gateway
+      service: f8a-3scale-connect-api
     template:
       metadata:
         labels:
-          service: f8a-3scale-admin-gateway
+          service: f8a-3scale-connect-api
       spec:
         containers:
         - env:
@@ -41,7 +41,7 @@ objects:
                 name: bayesian-config
                 key: three-scale-api-host-url
           image: "${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${IMAGE_TAG}"
-          name: f8a-3scale-admin-gateway
+          name: f8a-3scale-connect-api
           ports:
           - containerPort: 5000
             protocol: TCP
@@ -77,8 +77,8 @@ objects:
   kind: Service
   metadata:
     labels:
-      service: f8a-3scale-admin-gateway
-    name: f8a-3scale-admin-gateway
+      service: f8a-3scale-connect-api
+    name: f8a-3scale-connect-api
   spec:
     ports:
     - name: "32000"
@@ -86,16 +86,16 @@ objects:
       protocol: TCP
       targetPort: 5000
     selector:
-      service: f8a-3scale-admin-gateway
+      service: f8a-3scale-connect-api
 - apiVersion: v1
   kind: Route
   metadata:
-    name: f8a-3scale-admin-gateway
+    name: f8a-3scale-connect-api
   spec:
     host: ${BAYESIAN_API_HOSTNAME}
     to:
       kind: Service
-      name: f8a-3scale-admin-gateway
+      name: f8a-3scale-connect-api
 
 parameters:
 - description: A hostname where the 3 Scale admin gateway API should be exposed (will be auto-generated if empty)
