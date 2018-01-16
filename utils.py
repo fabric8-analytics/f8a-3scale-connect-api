@@ -243,12 +243,19 @@ def application_get_route(service_id, account):
             response = xmltodict.parse(response.text)
             if response and response['applications']:
                 for k, v in response['applications'].items():
-                    for application in v:
-                        for i_k, i_v in application.items():
+                    if type(v) is not list:
+                        for i_k, i_v in v.items():
                             if i_k == 'service_id':
                                 if i_v == service_id:
-                                    application_cache = application
-                                    return application
+                                    application_cache = v
+                                    return v
+                    else:
+                        for application in v:
+                            for i_k, i_v in application.items():
+                                if i_k == 'service_id':
+                                    if i_v == service_id:
+                                        application_cache = application
+                                        return application
     except:
         print('Error in app get')
 
