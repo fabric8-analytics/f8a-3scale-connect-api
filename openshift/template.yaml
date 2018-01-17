@@ -31,12 +31,12 @@ objects:
             valueFrom:
               secretKeyRef:
                 name: 3scale
-                key: three_scale_api_access_key
+                key: three-scale-api-access-key
           - name: THREE_SCALE_API_ACCOUNT_ID
             valueFrom:
               secretKeyRef:
                 name: 3scale
-                key: three_scale_api_account_id
+                key: three-scale-api-account-id
           - name: THREE_SCALE_API_HOST_URL
             valueFrom:
               configMapKeyRef:
