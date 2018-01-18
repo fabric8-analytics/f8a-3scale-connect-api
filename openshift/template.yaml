@@ -30,17 +30,17 @@ objects:
           - name: THREE_SCALE_API_ACCESS_KEY
             valueFrom:
               secretKeyRef:
-                name: 3scale
+                name: 3scale-connect-api
                 key: three-scale-api-access-key
           - name: THREE_SCALE_API_ACCOUNT_ID
             valueFrom:
               secretKeyRef:
-                name: 3scale
+                name: 3scale-connect-api
                 key: three-scale-api-account-id
           - name: THREE_SCALE_API_HOST_URL
             valueFrom:
-              configMapKeyRef:
-                name: bayesian-config
+              secretKeyRef:
+                name: 3scale-connect-api
                 key: three-scale-api-host-url
           image: "${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${IMAGE_TAG}"
           name: f8a-3scale-connect-api
