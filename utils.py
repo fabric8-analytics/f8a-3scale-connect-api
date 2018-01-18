@@ -105,7 +105,7 @@ def register(company):
         print('Metric Id: ' + metric_id)
 
         # Limit creation
-        limit_response = limit_create(app_plan_id, metric_id, 100);
+        limit_response = limit_create(app_plan_id, metric_id, 100)
         limit_result = json.dumps(limit_response)
         limit_output = json.loads(limit_result)
 
@@ -212,7 +212,7 @@ def get_route(servID):
         return {"error": "Service ID not proper"}
     else:
         app_user_key = app_get_output['user_key']
-        if proxy_config_read(service_id, 'sandbox', '1') and proxy_cache:
+        if proxy_config_read(service_id, 'production', '1') and proxy_cache:
                     user_output_dict['endpoints']['prod'] = proxy_cache['endpoint']['prod']
                     user_output_dict['endpoints']['stage'] = proxy_cache['endpoint']['stage']
 
@@ -269,14 +269,12 @@ def is_present(company, account):
 def proxy_config_read(service, environment, version):
     global proxy_cache
     headers = {'content-type': 'application/x-www-form-urlencoded'}
-    url = '/admin/api/services/{}/proxy/configs/{}/{}.json'.format(service, environment, version)
+    url = '/admin/api/services/{}/proxy.xml'.format(service)
     url = API_URL + url
 
     data = []
     data.append('access_token={}'.format(API_ACCESS_KEY))
     data.append('service_id={}'.format(service))
-    data.append('environment={}'.format(environment))
-    data.append('version={}'.format(version))
 
     data = '&'.join(data)
 
@@ -286,18 +284,15 @@ def proxy_config_read(service, environment, version):
         response = requests.get(url, data=data, headers=headers)
         
         if response:
-            response = response.text
-            print('Inside Proxy')
-            print(response)
-            response_load = json.loads(response)
-
-            if response_load['proxy_config'] and response_load['proxy_config']['content'] and response_load['proxy_config']['content']['proxy']:
-                proxy_cache['endpoint'] = {}
-                resp_dict = response_load['proxy_config']['content']['proxy']
-                proxy_cache['endpoint']['prod'] = resp_dict['endpoint']
-                proxy_cache['endpoint']['stage'] = resp_dict['sandbox_endpoint']
-                return True
+            response = xmltodict.parse(response.text)
             
+            if response['proxy'] and response['proxy']['endpoint']:
+                proxy_cache['endpoint'] = {}
+                resp_dict = response['proxy']
+                proxy_cache['endpoint']['prod'] = resp_dict['endpoint']
+                proxy_cache['endpoint']['stage'] = resp_dict['sandbox_endpoint'] or ''
+                return True
+                
     except:
         print('Error in proxy read')
 
@@ -420,7 +415,7 @@ def application_create(company, plan, account):
     try:
         response = requests.post(url, data=data, headers=headers)
         if response:
-            response = xmltodict.parse(response.text);
+            response = xmltodict.parse(response.text)
             if response and response['application']:
                 for k, v in response['application'].items():
                     result[k] = v
@@ -459,7 +454,7 @@ def service_create(company):
     try:
         response = requests.post(url, data=data, headers=headers)
         if response:
-            response = xmltodict.parse(response.text);
+            response = xmltodict.parse(response.text)
             if response and response['service']:
                 for k, v in response['service'].items():
                     result[k] = v
@@ -491,7 +486,7 @@ def service_plan_create(company, service):
     try:
         response = requests.post(url, data=data, headers=headers)
         if response:
-            response = xmltodict.parse(response.text);
+            response = xmltodict.parse(response.text)
             if response and response['plan']:
                 for k, v in response['plan'].items():
                     result[k] = v
@@ -597,7 +592,7 @@ def proxy_update(user_key, service):
     try:
         response = requests.patch(url, data=data, headers=headers)
         if response:
-            response = xmltodict.parse(response.text);
+            response = xmltodict.parse(response.text)
             if response and response['proxy']:
                 for k, v in response['proxy'].items():
                     result[k] = v
