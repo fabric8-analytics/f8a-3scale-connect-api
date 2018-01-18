@@ -1,4 +1,4 @@
-# 3scale-poc
+# 3scale-connect-api
 
 A simple flask application.  
 
