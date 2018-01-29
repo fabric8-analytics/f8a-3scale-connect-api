@@ -6,6 +6,16 @@ import jwt
 
 app = Flask(__name__)
 
+@app.route('/api/v1/readiness')
+def readiness():
+    """Generate response for the GET request to /api/v1/readiness."""
+    return flask.jsonify({}), 200
+
+
+@app.route('/api/v1/liveness')
+def liveness():
+    """Generate response for the GET request to /api/v1/liveness."""
+    return flask.jsonify({}), 200
 
 @app.route("/")
 def main():
