@@ -18,10 +18,6 @@ def liveness():
     """Generate response for the GET request to /api/v1/liveness."""
     return flask.jsonify({}), 200
 
-@app.route("/")
-def main():
-    return render_template('index.html')
-
 @app.route('/register', methods=['POST'])
 def register():
     params = request.get_json()
