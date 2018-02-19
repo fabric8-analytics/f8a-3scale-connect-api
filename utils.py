@@ -223,6 +223,40 @@ def get_route(servID):
 
         return user_output
 
+def get_endpoints():
+    user_output = {}
+    user_output_dict = {}
+    user_output_dict['endpoints'] = {}
+    user_output_dict['api_endpoints'] = {}
+    if SERVICE_ID:
+        service_id = SERVICE_ID
+    else:
+        return {"error": "Service ID not proper"}
+
+    account_id = ACCOUNT_ID
+    
+    app_get_response = application_get_route(service_id, account_id)
+    app_get_result = json.dumps(app_get_response)
+    app_get_output = json.loads(app_get_result)
+
+    if not app_get_output:
+        return {"error": "Service ID not proper"}
+    else:
+        app_user_key = app_get_output['user_key']
+        if proxy_config_read(service_id, 'production', '1') and proxy_cache:
+                    user_output_dict['endpoints']['prod'] = proxy_cache['endpoint']['prod']
+                    user_output_dict['endpoints']['stage'] = proxy_cache['endpoint']['stage']
+
+                    user_output_dict['user_key'] = app_user_key
+
+                    user_output_dict['api_endpoints']['stack_analyses'] = proxy_cache['endpoint']['prod']+'/api/v1/stack-analyses'
+                    user_output_dict['api_endpoints']['component_analyses'] = proxy_cache['endpoint']['prod']+'/api/v1/component-analyses'
+
+                    user_output_dict = json.dumps(user_output_dict)
+                    user_output = json.loads(user_output_dict)
+
+        return user_output
+
 
 def application_get_route(service_id, account):
     global application_cache
