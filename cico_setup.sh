@@ -17,6 +17,15 @@ prep() {
 }
 
 build_image() {
+    local push_registry
+    push_registry=$(make get-push-registry)
+    # login before build to be able to pull RHEL parent image
+    if [ -n "${DEVSHIFT_USERNAME}" -a -n "${DEVSHIFT_PASSWORD}" ]; then
+        docker login -u ${DEVSHIFT_USERNAME} -p ${DEVSHIFT_PASSWORD} ${push_registry}
+    else
+        echo "Could not login, missing credentials for the registry"
+        exit 1
+    fi
     # build image and tests
     make docker-build
 }
@@ -36,15 +45,7 @@ push_image() {
     image_name=$(make get-image-name)
     image_repository=$(make get-image-repository)
     tag=$(git rev-parse --short=7 HEAD)
-    push_registry="push.registry.devshift.net"
-
-    # login first
-    if [ -n "${DEVSHIFT_USERNAME}" -a -n "${DEVSHIFT_PASSWORD}" ]; then
-        docker login -u ${DEVSHIFT_USERNAME} -p ${DEVSHIFT_PASSWORD} ${push_registry}
-    else
-        echo "Could not login, missing credentials for the registry"
-        exit 1
-    fi
+    push_registry=$(make get-push-registry)
 
     tag_push ${push_registry}/${image_repository}:latest ${image_name}
     tag_push ${push_registry}/${image_repository}:${tag} ${image_name}

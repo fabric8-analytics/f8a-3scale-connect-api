@@ -1,0 +1,12 @@
+# base image source https://github.com/rhdt/EL-Dockerfiles/blob/master/base/python3/Dockerfile
+
+FROM prod.registry.devshift.net/osio-prod/base/python3:latest
+
+RUN useradd 3scale
+
+RUN mkdir -p /3scale
+COPY ./ /3scale
+WORKDIR /3scale
+RUN pip3 install -r requirements.txt &&\
+    pip3 install gunicorn
+CMD ["gunicorn", "app:app"]
