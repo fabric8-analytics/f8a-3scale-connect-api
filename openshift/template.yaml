@@ -120,13 +120,13 @@ parameters:
   displayName: Docker registry
   required: true
   name: DOCKER_REGISTRY
-  value: "registry.devshift.net"
+  value: "quay.io"
 
 - description: Docker image to use
   displayName: Docker image
   required: true
   name: DOCKER_IMAGE
-  value: "fabric8-analytics/f8a-3scale-connect-api"
+  value: "openshiftio/rhel-fabric8-analytics-f8a-3scale-connect-api"
 
 - description: Image tag
   displayName: Image tag
