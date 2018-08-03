@@ -18,17 +18,6 @@ def liveness():
     """Generate response for the GET request to /api/v1/liveness."""
     return flask.jsonify({}), 200
 
-@app.route('/register', methods=['POST'])
-def register():
-    params = request.get_json()
-    _auth = params['auth_token']
-    decoded = jwt.decode(_auth, verify=False)
-    company = decoded['company']
-    response = utils.register(company)
-    print ('Inside register')
-    print(response)
-    #return _auth
-    return json.dumps(response)
 
 @app.route('/get-route', methods=['POST'])
 def get_route():
@@ -43,7 +32,6 @@ def get_route():
         except Exception:
             return json.dumps({"error": "unauthorized"}), status.HTTP_401_UNAUTHORIZED
         else:
-            company = decoded['company']
             response = utils.get_route(_servID)
             return json.dumps(response)
 
