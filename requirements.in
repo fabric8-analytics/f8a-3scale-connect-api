@@ -1,5 +1,6 @@
-Flask
+flask
 jwt
 PyJWT
 xmltodict
 requests
+coloredlogs
