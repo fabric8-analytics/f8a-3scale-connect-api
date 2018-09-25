@@ -20,7 +20,7 @@ class Accounts(ThreeScale):
         """Initialize object."""
         super().__init__()
 
-    def create(self, username, email, org_name, password,
+    def create(self, tracker, username, email, org_name, password,
                account_plan_id=None,
                service_plan_id=None,
                application_plan_id=None,
@@ -49,11 +49,13 @@ class Accounts(ThreeScale):
                 _resp.content, dict_constructor=dict)
             logger.info(
                 "Successfully Created ACCOUNT for user {}".format(username))
+            tracker._save_current_state(self)
             return self.response
         else:
             logger.error("Create Account FAILED {} with STATUS CODE {}".format(
                 _url, _resp.status_code))
             logger.error("FAILED RESPONSE: {}".format(_resp.content))
+            tracker._rollback()
 
     def delete(self, account_id=None):
         """Remove a Developer Account."""

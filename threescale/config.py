@@ -16,3 +16,7 @@ class Config:
     class _endpoints:
         acc_sign_up = "admin/api/signup.xml"
         acc_delete = "admin/api/accounts/{id}.xml"
+        service_create = 'admin/api/services.xml'
+        service_delete = 'admin/api/services/{id}.xml'
+        service_plan_create = 'admin/api/services/{id}/service_plans.xml'
+        service_plan_delete = '/admin/api/services/{service_id}/service_plans/{id}.xml'
