@@ -29,3 +29,4 @@ class Config:
             '{metric_id}/limits/{id}.xml'
         mapping_create = 'admin/api/services/{service_id}/proxy/mapping_rules.xml'
         mapping_delete = 'admin/api/services/{service_id}/proxy/mapping_rules/{id}.xml'
+        proxy_update = 'admin/api/services/{service_id}/proxy.xml'
