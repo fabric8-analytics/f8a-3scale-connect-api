@@ -49,6 +49,7 @@ class Accounts(ThreeScale):
                 _resp.content, dict_constructor=dict)
             logger.info(
                 "Successfully Created ACCOUNT for user {}".format(username))
+            return self.response
         else:
             logger.error("Create Account FAILED {} with STATUS CODE {}".format(
                 _url, _resp.status_code))
