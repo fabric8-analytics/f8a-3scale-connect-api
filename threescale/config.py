@@ -30,3 +30,7 @@ class Config:
         mapping_create = 'admin/api/services/{service_id}/proxy/mapping_rules.xml'
         mapping_delete = 'admin/api/services/{service_id}/proxy/mapping_rules/{id}.xml'
         proxy_update = 'admin/api/services/{service_id}/proxy.xml'
+        proxy_policy_update = 'admin/api/services/{service_id}/proxy/policies.json'
+        proxy_config_list = 'admin/api/services/{service_id}/proxy/configs/{environment}.json'
+        proxy_config_promote = 'admin/api/services/{service_id}/proxy/configs/{environment}/'\
+            '{version}/promote.json'
