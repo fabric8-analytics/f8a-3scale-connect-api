@@ -9,6 +9,7 @@ from .rollback import StateTracker
 from .services import Services
 from .services import ServicePlans
 from .applications import ApplicationPlans
+from .metrics import Metrics, Limits
 
 coloredlogs.install()
 logging.basicConfig(level=logging.INFO)

@@ -23,4 +23,6 @@ class Config:
         application_plan_create = 'admin/api/services/{service_id}/application_plans.xml'
         application_plan_delete = 'admin/api/services/{service_id}/application_plans/{id}.xml'
         metric_create = 'admin/api/services/{service_id}/metrics.xml'
-        metric_delete = '/admin/api/services/{service_id}/metrics/{id}.xml'
+        metric_delete = 'admin/api/services/{service_id}/metrics/{id}.xml'
+        limit_create = 'admin/api/application_plans/{application_plan_id}/metrics/{metric_id}/limits.xml'
+        limit_delete = 'admin/api/application_plans/{application_plan_id}/metrics/{metric_id}/limits/{id}.xml'

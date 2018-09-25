@@ -90,5 +90,5 @@ class ApplicationPlans(ThreeScale):
 
     def __repr__(self):
         """Representation of class."""
-        account_id = self.response.get('account', {}).get('id')
-        return "Class ApplicationPlan(id={})".format(account_id)
+        plan_id = self.response.get('plan', {}).get('id')
+        return "Class ApplicationPlan(id={})".format(plan_id)
