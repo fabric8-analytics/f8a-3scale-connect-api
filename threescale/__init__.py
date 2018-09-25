@@ -7,7 +7,8 @@ import coloredlogs
 from .accounts import Accounts
 from .rollback import StateTracker
 from .services import Services
-from .services import ServicesPlan
+from .services import ServicePlans
+from .applications import ApplicationPlans
 
 coloredlogs.install()
 logging.basicConfig(level=logging.INFO)

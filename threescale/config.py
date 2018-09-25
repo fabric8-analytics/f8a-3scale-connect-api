@@ -19,4 +19,6 @@ class Config:
         service_create = 'admin/api/services.xml'
         service_delete = 'admin/api/services/{id}.xml'
         service_plan_create = 'admin/api/services/{id}/service_plans.xml'
-        service_plan_delete = '/admin/api/services/{service_id}/service_plans/{id}.xml'
+        service_plan_delete = 'admin/api/services/{service_id}/service_plans/{id}.xml'
+        application_plan_create = 'admin/api/services/{service_id}/application_plans.xml'
+        application_plan_delete = 'admin/api/services/{service_id}/application_plans/{id}.xml'
