@@ -37,7 +37,7 @@ class ApplicationPlans(ThreeScale):
             self._endpoints.application_plan_create.format(service_id=service_id))
         _resp = requests.post(_url, data=request_body)
 
-        logger.info("[POST] {} with STAUS CODE: {}".format(
+        logger.info("[POST] {} with STATUS CODE: {}".format(
             _url, _resp.status_code))
 
         if _resp.ok:
@@ -73,7 +73,7 @@ class ApplicationPlans(ThreeScale):
             self._endpoints.application_plan_delete.format(
                 service_id=service_id, id=application_plan_id))
         _resp = requests.delete(_url, data=request_body)
-        logger.info("[DELETE] {} with STAUS CODE: {}".format(
+        logger.info("[DELETE] {} with STATUS CODE: {}".format(
             _url, _resp.status_code))
         if _resp.ok:
             logger.info(

@@ -41,7 +41,7 @@ class Accounts(ThreeScale):
         _url = self._build_url(self._endpoints.acc_sign_up)
         _resp = requests.post(_url, data=request_body)
 
-        logger.info("[POST] {} with STAUS CODE: {}".format(
+        logger.info("[POST] {} with STATUS CODE: {}".format(
             _url, _resp.status_code))
 
         if _resp.ok:
@@ -69,7 +69,7 @@ class Accounts(ThreeScale):
         _url = self._build_url(
             self._endpoints.acc_delete.format(id=account_id))
         _resp = requests.delete(_url, data=request_body)
-        logger.info("[DELETE] {} with STAUS CODE: {}".format(
+        logger.info("[DELETE] {} with STATUS CODE: {}".format(
             _url, _resp.status_code))
         if _resp.ok:
             logger.info(

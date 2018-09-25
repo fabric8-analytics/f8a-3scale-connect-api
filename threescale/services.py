@@ -39,7 +39,7 @@ class Services(ThreeScale):
         _url = self._build_url(self._endpoints.service_create)
         _resp = requests.post(_url, data=request_body)
 
-        logger.info("[POST] {} with STAUS CODE: {}".format(
+        logger.info("[POST] {} with STATUS CODE: {}".format(
             _url, _resp.status_code))
 
         if _resp.ok:
@@ -67,7 +67,7 @@ class Services(ThreeScale):
         _url = self._build_url(
             self._endpoints.service_delete.format(id=service_id))
         _resp = requests.delete(_url, data=request_body)
-        logger.info("[DELETE] {} with STAUS CODE: {}".format(
+        logger.info("[DELETE] {} with STATUS CODE: {}".format(
             _url, _resp.status_code))
         if _resp.ok:
             logger.info(
@@ -111,7 +111,7 @@ class ServicePlans(ThreeScale):
             self._endpoints.service_plan_create.format(id=service_id))
         _resp = requests.post(_url, data=request_body)
 
-        logger.info("[POST] {} with STAUS CODE: {}".format(
+        logger.info("[POST] {} with STATUS CODE: {}".format(
             _url, _resp.status_code))
 
         if _resp.ok:
@@ -139,7 +139,7 @@ class ServicePlans(ThreeScale):
         _url = self._build_url(
             self._endpoints.service_plan_delete.format(service_id=service_id, id=service_plan_id))
         _resp = requests.delete(_url, data=request_body)
-        logger.info("[DELETE] {} with STAUS CODE: {}".format(
+        logger.info("[DELETE] {} with STATUS CODE: {}".format(
             _url, _resp.status_code))
         if _resp.ok:
             logger.info(

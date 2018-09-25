@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""ThreeScale Metric, Mapping, LIMIT interface for APIs."""
+"""ThreeScale Metric, Limit interface for APIs."""
 
 from .base import ThreeScale
 import logging
@@ -40,7 +40,7 @@ class Metrics(ThreeScale):
             self._endpoints.metric_create.format(service_id=service_id))
         _resp = requests.post(_url, data=request_body)
 
-        logger.info("[POST] {} with STAUS CODE: {}".format(
+        logger.info("[POST] {} with STATUS CODE: {}".format(
             _url, _resp.status_code))
 
         if _resp.ok:
@@ -76,7 +76,7 @@ class Metrics(ThreeScale):
             self._endpoints.metric_delete.format(
                 service_id=service_id, id=metric_id))
         _resp = requests.delete(_url, data=request_body)
-        logger.info("[DELETE] {} with STAUS CODE: {}".format(
+        logger.info("[DELETE] {} with STATUS CODE: {}".format(
             _url, _resp.status_code))
         if _resp.ok:
             logger.info(
@@ -116,10 +116,10 @@ class Limits(ThreeScale):
         request_body = {k: v for k, v in request_body.items() if v}
         _url = self._build_url(
             self._endpoints.limit_create.format(application_plan_id=application_plan_id,
-                                                 metric_id=metric_id))
+                                                metric_id=metric_id))
         _resp = requests.post(_url, data=request_body)
 
-        logger.info("[POST] {} with STAUS CODE: {}".format(
+        logger.info("[POST] {} with STATUS CODE: {}".format(
             _url, _resp.status_code))
 
         if _resp.ok:
@@ -157,7 +157,7 @@ class Limits(ThreeScale):
             self._endpoints.limit_delete.format(application_plan_id=application_plan_id,
                                                 id=limit_id, metric_id=metric_id))
         _resp = requests.delete(_url, data=request_body)
-        logger.info("[DELETE] {} with STAUS CODE: {}".format(
+        logger.info("[DELETE] {} with STATUS CODE: {}".format(
             _url, _resp.status_code))
         if _resp.ok:
             logger.info(

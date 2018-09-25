@@ -10,6 +10,7 @@ from .services import Services
 from .services import ServicePlans
 from .applications import ApplicationPlans
 from .metrics import Metrics, Limits
+from .mappings import Mappings
 
 coloredlogs.install()
 logging.basicConfig(level=logging.INFO)
