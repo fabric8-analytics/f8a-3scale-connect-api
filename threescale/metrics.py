@@ -106,7 +106,7 @@ class Limits(ThreeScale):
         """Initialize object."""
         super().__init__()
 
-    def create(self, tracker, application_plan_id, metric_id, value=60, period='minute'):
+    def create(self, tracker, application_plan_id, metric_id, value=30, period='minute'):
         """Create an Limit."""
         request_body = {
             'access_token': self._access_token,

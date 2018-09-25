@@ -12,6 +12,101 @@ import re
 logger = logging.getLogger(__name__)
 
 
+class Applications(ThreeScale):
+    """ThreeScale Applications creation and deletion."""
+
+    response = None
+
+    def __init__(self):
+        """Initialize object."""
+        super().__init__()
+
+    def create(self, tracker, account_id, application_plan_id, application_name,
+               description=None,
+               user_key=None,
+               application_id=None,
+               application_key=None,
+               redirect_url=None,
+               first_traffic_at=None,
+               first_daily_traffic_at=None,
+               **kwargs):
+        """Create an Application."""
+        request_body = {
+            'access_token': self._access_token,
+            'account_id': account_id,
+            'plan_id': application_plan_id,
+            'name': application_name,
+            'description': description or "Application for Account {}".format(account_id),
+            'user_key': user_key,
+            'application_id': application_id,
+            'application_key': application_key,
+            'redirect_url': redirect_url,
+            'first_traffic_at': first_traffic_at,
+            'first_daily_traffic_at': first_daily_traffic_at,
+        }
+        request_body.update(kwargs)
+        request_body = {k: v for k, v in request_body.items() if v}
+        _url = self._build_url(
+            self._endpoints.application_create.format(account_id=account_id))
+        _resp = requests.post(_url, data=request_body)
+
+        logger.info("[POST] {} with STATUS CODE: {}".format(
+            _url, _resp.status_code))
+
+        if _resp.ok:
+            self.response = xmltodict.parse(
+                _resp.content, dict_constructor=dict)
+            logger.info(
+                "Successfully Created Application: {}".format(application_name))
+            tracker._save_current_state(self)
+            return self.response
+        else:
+            logger.error("Create Application FAILED {} with STATUS CODE {}".format(
+                _url, _resp.status_code))
+            logger.error("FAILED RESPONSE: {}".format(_resp.content))
+            tracker._rollback()
+
+    def delete(self, account_id=None, application_id=None):
+        """Remove an Application."""
+        if application_id is None and self.response.get('application', {}).get('id') is None:
+            raise ValueError(
+                "Application ID is required to delete an Application")
+
+        if account_id is None \
+                and self.response.get('application', {}).get('user_account_id') is None:
+            raise ValueError("Account ID is required to delete an Application")
+
+        application_id = application_id or self.response.get(
+            'application', {}).get('id')
+        account_id = account_id or self.response.get(
+            'application', {}).get('user_account_id')
+
+        request_body = {'access_token': self._access_token}
+        _url = self._build_url(
+            self._endpoints.application_delete.format(
+                account_id=account_id, id=application_id))
+        _resp = requests.delete(_url, data=request_body)
+        logger.info("[DELETE] {} with STATUS CODE: {}".format(
+            _url, _resp.status_code))
+        if _resp.ok:
+            logger.info(
+                "Successfully Deleted Application ID {}".format(
+                    application_id))
+        else:
+            logger.error("Delete Application FAILED {} with STATUS CODE {}".format(
+                _url, _resp.status_code))
+            logger.error("FAILED RESPONSE: {}".format(_resp.content))
+
+    def find(self):
+        """Find an Application."""
+        raise NotImplementedError("Method find Not Implemented.")
+
+    def __repr__(self):
+        """Representation of class."""
+        application_id = self.response.get('application', {}).get('id')
+        return "Class Application(id={})".format(application_id)
+
+
 class ApplicationPlans(ThreeScale):
     """ThreeScale ApplicationPlans creation and deletion."""
 
