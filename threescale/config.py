@@ -22,3 +22,5 @@ class Config:
         service_plan_delete = 'admin/api/services/{service_id}/service_plans/{id}.xml'
         application_plan_create = 'admin/api/services/{service_id}/application_plans.xml'
         application_plan_delete = 'admin/api/services/{service_id}/application_plans/{id}.xml'
+        metric_create = 'admin/api/services/{service_id}/metrics.xml'
+        metric_delete = '/admin/api/services/{service_id}/metrics/{id}.xml'
