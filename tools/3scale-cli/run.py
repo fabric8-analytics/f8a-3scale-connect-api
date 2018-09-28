@@ -20,7 +20,7 @@ COLORED_OUTPUT = '\033[32m{}\033[39m'
 @click.option('-v', '--verbose', is_flag=True)
 @click.argument('config-file', type=click.Path(exists=True))
 def cli(**options):
-    """Access command line."""
+    """Three Scale Command line tool."""
     PRIVATE_BASE_URL = ('https://recommender.api.openshift.io:443')
     if options.get('debug'):
         logger.setLevel(logging.DEBUG)
