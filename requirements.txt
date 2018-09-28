@@ -4,24 +4,25 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
-asn1crypto==0.24.0        # via cryptography
-certifi==2018.8.24        # via requests
-cffi==1.11.5              # via cryptography
+certifi==2017.11.5        # via requests
+cffi==1.10.0              # via cryptography
 chardet==3.0.4            # via requests
 click==6.7                # via flask
-coloredlogs==10.0
-cryptography==2.3.1       # via jwt
-flask==1.0.2
-humanfriendly==4.16.1     # via coloredlogs
-idna==2.7                 # via cryptography, requests
+cryptography==1.7.2       # via jwt
+enum34==1.1.6             # via cryptography
+flask==0.12.2
+Flask-API==1.0
+idna==2.5                 # via cryptography, requests
+ipaddress==1.0.18         # via cryptography
 itsdangerous==0.24        # via flask
-jinja2==2.10              # via flask
-jwt==0.5.4
+jinja2==2.9.6             # via flask
+jwt==0.5.2
 markupsafe==1.0           # via jinja2
-pycparser==2.18           # via cffi
-pyjwt==1.6.4
-requests==2.19.1
-six==1.11.0               # via cryptography
-urllib3==1.23             # via requests
-werkzeug==0.14.1          # via flask
+pyasn1==0.2.3             # via cryptography
+pycparser==2.17           # via cffi
+pyjwt==1.5.3
+requests==2.18.4
+six==1.10.0               # via cryptography
+urllib3==1.22             # via requests
+werkzeug==0.12.2          # via flask
 xmltodict==0.11.0
