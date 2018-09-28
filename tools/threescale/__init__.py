@@ -12,6 +12,7 @@ from .applications import Applications, ApplicationPlans
 from .metrics import Metrics, Limits
 from .mappings import Mappings
 from .proxies import Proxies
+from .config import Config
 
 coloredlogs.install()
 logging.basicConfig(level=logging.INFO)

@@ -20,7 +20,7 @@ class Accounts(ThreeScale):
         """Initialize object."""
         super().__init__()
 
-    def create(self, tracker, username, email, org_name, password,
+    def create(self, tracker, username, password, email, org_name,
                account_plan_id=None,
                service_plan_id=None,
                application_plan_id=None,

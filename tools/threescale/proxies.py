@@ -107,17 +107,13 @@ class Proxies(ThreeScale):
             logger.error("Unable to fetch the latest version.")
             return 2
 
-    def policy_update(self, tracker, header_name, header_value, service_id=None):
+    def policy_update(self, tracker, headers, service_id=None):
         """Update the Proxy Policy Configuration."""
         policies_config = [{
             "name": "headers",
                     "configuration": {
                         "response": [],
-                        "request":[{
-                            "op": "set",
-                            "header": header_name,
-                            "value": header_value
-                        }]},
+                        "request":headers},
                     "version": "builtin",
                     "enabled": True
         }]

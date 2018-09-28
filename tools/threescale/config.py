@@ -10,6 +10,7 @@ class Config:
 
     _access_token = os.getenv("THREESCALE_ACCESS_TOKEN")
     _3scale_id = os.getenv("THREESCALE_ID")
+    _osio_token = os.getenv("OSIO_ACCESS_TOKEN")
     _3scale_domain = "3scale.net"
 
     class _endpoints:

@@ -1,0 +1,15 @@
+credentials:
+    admin-token: <3scale_admin_token>
+    domain: <3scale_domain_name>
+    threescale-id: <3scale_id>
+    osio-token: <osio_token>
+
+account:
+    username: <username>
+    email: <email>
+    password: <password>
+    organization: <org>
+
+limit:
+    value: <int_value>
+    period: <minute|hour|day|week|month|year|eternity>
