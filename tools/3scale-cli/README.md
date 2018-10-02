@@ -34,7 +34,7 @@ Options:
   -v, --verbose
   --help         Show this message and exit.
 ```
-3scale cli requires a yaml file that contains all the configuration details needed to run.
+3scale-cli requires a yaml file that contains all the configuration details needed to run.
 
 `example.config.yaml`
 ```yaml
@@ -42,15 +42,31 @@ credentials:
     admin-token: <3scale_admin_token>
     domain: <3scale_domain_name>
     threescale-id: <3scale_id>
-    osio-token: <osio_token>
+    private-base-url: <private_base_url>
+    account-secret: <account_secret>
 
 account:
     username: <username>
     email: <email>
     password: <password>
-    organization: <org>
+    organization: <organization>
 
-limit:
-    value: <int_value>
-    period: <minute|hour|day|week|month|year|eternity>
+
+endpoints:
+    - pattern: /v1/my-endpoint-1
+      method: <POST|GET|DELETE|PUT>
+      limit:
+          value: <int_value>
+          period: <minute|hour|day|week|month|year|eternity>
+
+    - pattern: /v1/my-endpoint-2
+      method: <POST|GET|DELETE|PUT>
+      limit:
+          value: <int_value>
+          period: <minute|hour|day|week|month|year|eternity>
+```
+
+RUN:
+```bash
+$ 3scale config.yaml --verbose
 ```
