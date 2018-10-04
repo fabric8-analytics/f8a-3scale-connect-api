@@ -1,0 +1,26 @@
+credentials:
+    admin-token: <3scale_admin_token>
+    domain: <3scale_domain_name>
+    threescale-id: <3scale_id>
+    private-base-url: <private_base_url>
+    account-secret: <account_secret>
+
+account:
+    username: <username>
+    email: <email>
+    password: <password>
+    organization: <org>
+
+
+endpoints:
+    - pattern: /v1/my-endpoint-1
+      method: <POST|GET|DELETE|PUT>
+      limit:
+          value: <int_value>
+          period: <minute|hour|day|week|month|year|eternity>
+
+    - pattern: /v1/my-endpoint-2
+      method: <POST|GET|DELETE|PUT>
+      limit:
+          value: <int_value>
+          period: <minute|hour|day|week|month|year|eternity>
