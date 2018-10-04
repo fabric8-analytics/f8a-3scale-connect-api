@@ -1,4 +1,5 @@
 
+
 ### Installation:
 
 #### Option 1:
@@ -76,9 +77,12 @@ https://*`example-test`*-admin.*`3scale.net`*  first part `example-test` is thre
 **`account-secret`**: Account secret key that will be passed as a custom header to the API backend.
 
 ### `endpoints`: 
-**`pattern`**:  Endpoint URL of API backend e.g. in http://example.com`/api/v1/test` 
+**`pattern`**:  Endpoint URL of API backend e.g. in http://example.com`/api/v1/test`
+
 **`method`**:  HTTP request method e.g. `POST` `GET` `DELETE` `PUT` etc.
+
 **`limit`**:  rate limiting is used to control the rate of traffic received by  API e.g.  `30/minute`(value/period)  so 30 request per minute will be allowed otherwise API will return limit exceeded.
+
 - **`value`**: Number of requests allowed in time period.
 - **`period`**:  Time period e.g. minute, hour, day, week, month, year, eternity
 
