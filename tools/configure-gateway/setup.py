@@ -25,6 +25,6 @@ setup(
     install_requires=_requirements(),
     entry_points='''
         [console_scripts]
-        3scale=run:cli
+        configure-gateway=run:cli
     ''',
 )
