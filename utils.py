@@ -23,7 +23,7 @@ def get_route(servID):
         service_id = servID
 
     account_id = ACCOUNT_ID
-    
+
     app_get_response = application_get_route(service_id, account_id)
     app_get_result = json.dumps(app_get_response)
     app_get_output = json.loads(app_get_result)
@@ -54,7 +54,7 @@ def get_endpoints():
         return {"error": "Service ID not proper"}
 
     account_id = ACCOUNT_ID
-    
+
     app_get_response = application_get_route(service_id, account_id)
     app_get_result = json.dumps(app_get_response)
     app_get_output = json.loads(app_get_result)
@@ -128,17 +128,17 @@ def proxy_config_read(service, environment, version):
 
     try:
         response = requests.get(url, data=data, headers=headers)
-        
+
         if response:
             response = xmltodict.parse(response.text)
-            
+
             if response['proxy'] and response['proxy']['endpoint']:
                 proxy_cache['endpoint'] = {}
                 resp_dict = response['proxy']
                 proxy_cache['endpoint']['prod'] = resp_dict['endpoint']
                 proxy_cache['endpoint']['stage'] = resp_dict['sandbox_endpoint'] or ''
                 return True
-                
+
     except:
         print('Error in proxy read')
 

@@ -7,6 +7,7 @@ import jwt
 
 app = Flask(__name__)
 
+
 @app.route('/api/v1/readiness')
 def readiness():
     """Generate response for the GET request to /api/v1/readiness."""
@@ -35,19 +36,11 @@ def get_route():
             response = utils.get_route(_servID)
             return json.dumps(response)
 
+
 @app.route('/get-endpoints', methods=['GET'])
 def get_endpoints():
-    _auth = request.headers.get('Authorization')
-    if not _auth:
-        return json.dumps({"error": "missing or invalid auth token"}), status.HTTP_404_NOT_FOUND
-    else:
-        try:
-            decoded = jwt.decode(_auth, verify=False)
-        except Exception:
-            return json.dumps({"error": "unauthorized"}), status.HTTP_401_UNAUTHORIZED
-        else:
-            response = utils.get_endpoints()
-            return json.dumps(response)
+    response = utils.get_endpoints()
+    return json.dumps(response)
 
 
 if __name__ == "__main__":
