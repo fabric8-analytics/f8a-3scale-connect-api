@@ -30,6 +30,7 @@ def is_valid_orgname(org):
 @click.command()
 @click.option('--debug', is_flag=True, help="Enables the debuging mode.")
 @click.option('-v', '--verbose', is_flag=True)
+@click.option('-o', '--output', type=click.Path(), help="Output file path")
 @click.argument('config-file', type=click.Path(exists=True))
 def cli(**options):
     """Three Scale Command line tool."""
@@ -48,7 +49,7 @@ def cli(**options):
 
         creds = config.get('credentials', {})
         admin_token = creds.get('admin-token')
-        account_secret = creds.get('account-secret')
+        account_headers = creds.get('3scale-account-headers', {})
         private_base_url = creds.get('private-base-url')
         threescale_domain = creds.get('domain', '3scale.net')
         threescale_id = creds.get('threescale-id')
@@ -61,14 +62,15 @@ def cli(**options):
 
         endpoints = config.get('endpoints', {})
 
-        if not all([creds, admin_token, private_base_url, threescale_id, account_secret]):
+        if not all([creds, admin_token, private_base_url, threescale_id, account_headers]):
             click.echo("Error: Missing credentials in config file."
                        """
                         credentials:
                             admin-token: <3scale_admin_token>
                             threescale-id: <3scale_id>
-                            account-secret: <account-secret>
-                            private-base-url: <private_base_url> """)
+                            private-base-url: <private_base_url>
+                            3scale-account-headers:
+                                x-3scale-account-secret: <account_secret> """)
             sys.exit(2)
 
         if not all([account, username, user_email, password, org]):
@@ -183,8 +185,8 @@ def cli(**options):
             proxy_update_response = proxies.update(
                 StateTracker, service_id, private_base_url)
             headers = [
-                {"op": "set", "header": "X-f8a-account-secret",
-                    "value": account_secret}
+                {"op": "set", "header": key, "value": value}
+                for key, value in account_headers.items()
             ]
             proxies.policy_update(StateTracker, headers=headers)
             proxies.proxy_promote(StateTracker)
@@ -215,9 +217,14 @@ def cli(**options):
                 'prod_route': prod_route,
                 'user_key': user_key
             }
-            print('-'*40)
-            print(COLORED_OUTPUT.format(json.dumps(response, indent=4)))
-            print('-'*40)
+            output_file = options.get('output')
+            if not output_file:
+                print('-'*40)
+                print(COLORED_OUTPUT.format(json.dumps(response, indent=4)))
+                print('-'*40)
+            else:
+                with open(output_file, 'w') as f:
+                    f.write(json.dumps(response, indent=4))
         except Exception as exc:
             StateTracker._rollback()
             raise exc

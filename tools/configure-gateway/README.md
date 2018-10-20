@@ -1,5 +1,3 @@
-
-
 ### Installation:
 
 #### Option 1:
@@ -25,19 +23,20 @@ pip install -e .
 ```
 
 ### Usage:
-#### configuration:
 ```bash
 Usage: configure-gateway [OPTIONS] CONFIG_FILE
 
   Three Scale Command line tool.
 
 Options:
-  --debug        Enables the debuging mode.
+  --debug            Enables the debuging mode.
   -v, --verbose
-  --help         Show this message and exit.
+  -o, --output PATH  Output file path
+  --help             Show this message and exit.
 ```
 configure-gateway requires a yaml file that contains all the configuration details needed to run.
 
+#### configuration:
 Example: `sample.config.yaml`
 ```yaml
 credentials:
@@ -45,7 +44,8 @@ credentials:
     domain: <3scale_domain_name>
     threescale-id: <3scale_id>
     private-base-url: <private_base_url>
-    account-secret: <account_secret>
+    3scale-account-headers:
+        x-3scale-account-secret: <account_secret>
 
 account:
     username: <username>
@@ -74,7 +74,7 @@ https://*`example-test`*-admin.*`3scale.net`*  first part `example-test` is thre
 
 **`private-base-url`**: Private Base URL field is your API backend URL. 3scale will redirect all traffic to API backend after all authentication, authorization, rate limits and statistics have been processed.
 
-**`account-secret`**: Account secret key that will be passed as a custom header to the API backend.
+**`3scale-account-headers`**: Account headers that will be passed as a custom headers to the API backend.
 
 ### `endpoints`: 
 **`pattern`**:  Endpoint URL of API backend e.g. in http://example.com`/api/v1/test`
@@ -87,7 +87,7 @@ https://*`example-test`*-admin.*`3scale.net`*  first part `example-test` is thre
 - **`period`**:  Time period e.g. minute, hour, day, week, month, year, eternity
 
 
-RUN:
+#### RUN:
 ```bash
-$ configure-gateway config.yaml --verbose
+$ configure-gateway config.yaml --verbose --output response.json
 ```

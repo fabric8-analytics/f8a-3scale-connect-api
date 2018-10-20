@@ -3,7 +3,8 @@ credentials:
     domain: <3scale_domain_name>
     threescale-id: <3scale_id>
     private-base-url: <private_base_url>
-    account-secret: <account_secret>
+    3scale-account-headers:
+        x-3scale-account-secret: <account_secret>
 
 account:
     username: <username>
