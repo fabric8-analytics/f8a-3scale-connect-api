@@ -12,7 +12,7 @@ def _requirements():
 
 
 setup(
-    name="3scale-cli",
+    name="configure-gateway",
     version='0.1',
     description="Command line tool for Fabric8 3scale connect API",
     author='Ravindra Ratnawat',
