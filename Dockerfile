@@ -5,8 +5,8 @@ RUN useradd 3scale
 #  https://cryptography.io/en/latest/installation/#rhel-centos
 RUN yum install -y gcc &&\
     yum install -y epel-release &&\
-    yum install -y python34-pip &&\
-    yum install -y redhat-rpm-config gcc libffi-devel python34-devel openssl-devel &&\
+    yum install -y python36-pip &&\
+    yum install -y redhat-rpm-config gcc libffi-devel python36-devel openssl-devel &&\
     yum clean all
 
 RUN mkdir -p /3scale
