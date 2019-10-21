@@ -9,11 +9,8 @@ cffi==1.10.0              # via cryptography
 chardet==3.0.4            # via requests
 click==6.7                # via flask
 cryptography==1.7.2       # via jwt
-enum34==1.1.6             # via cryptography
 flask==0.12.2
-Flask-API==1.0
 idna==2.5                 # via cryptography, requests
-ipaddress==1.0.18         # via cryptography
 itsdangerous==0.24        # via flask
 jinja2==2.9.6             # via flask
 jwt==0.5.2
@@ -24,5 +21,5 @@ pyjwt==1.5.3
 requests==2.18.4
 six==1.10.0               # via cryptography
 urllib3==1.22             # via requests
-werkzeug==0.12.2          # via flask
+werkzeug==0.15.3          # via flask
 xmltodict==0.11.0
