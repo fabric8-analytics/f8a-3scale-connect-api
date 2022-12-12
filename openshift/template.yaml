@@ -74,6 +74,7 @@ objects:
               memory: "512Mi"
               cpu: "500m"
         restartPolicy: Always
+        serviceAccountName: dsaas-deploy
     test: false
     triggers:
     - type: ConfigChange
